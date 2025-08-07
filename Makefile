@@ -14,10 +14,12 @@ clean: clear
 	rm -f $(HEXA_KEY_FILE)
 	rm -f $(CRYPTED_KEY_FILE)
 
-g  : clean
-	rm -f $(HEXA_KEY_FILE)
+generate_file: clean
 	touch $(HEXA_KEY_FILE)
 	head -c 64 /dev/urandom | xxd -p | tr -d '\n' > $(HEXA_KEY_FILE)
+	cat $(HEXA_KEY_FILE)
+
+g  : generate_file
 	$(PYTHON) $(SCRIPT) -g $(HEXA_KEY_FILE)
 
 k  : 

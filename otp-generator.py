@@ -64,12 +64,12 @@ class string_process:
         h = hmac.new(key, msg, hashlib.sha1).digest() #* GENERATE HASH WITH KEY AND MSG
         o = o = h[19] & 15
         
-        h = (struct.unpack(">I", h[o:o+4])[0] & 0x7fffffff) % 1000000 #UNPACKING
+        h = (struct.unpack(">I", h[o:o+4])[0] & 0x7fffffff) % 1000000 #*UNPACKING
             
         return h
     
     def get_totp_token(self, secret):
-        x = str(self.get_hotp_token(secret, intervals_no=int(time.time())//30)) # CHECK IF OTP IS SAME FOR 30s
+        x = str(self.get_hotp_token(secret, intervals_no=int(time.time())//30)) #* CHECK IF OTP IS SAME FOR 30s
         
         while(len(x) != 6):
             x+='0'
