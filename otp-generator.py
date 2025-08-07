@@ -37,10 +37,9 @@ class hexa_process:
         
         fernet = Fernet(self.key)
         
-        with open(self.file_path, 'rb') as file:
-            original = file.read()
+        original_bytes = self.hexakey.encode('utf-8')
             
-        encrypted = fernet.encrypt(original)
+        encrypted = fernet.encrypt(original_bytes)
         
         with open('ft_otp.key', 'wb') as encrypted_file:
             encrypted_file.write(encrypted)
@@ -53,11 +52,9 @@ class string_process:
         self.key = None
 
     @staticmethod
-    def get_hotp_token(secret, intervals_no):
-        try:
-            key = base64.b32decode(secret, True) #* DECODING KEY IN BASE 32
-        except base64.binascii.Error:
-            raise ValueError("Invalid Base32 secret: Ensure the secret is properly Base32-encoded.")
+    def get_hotp_token(secret_bytes, intervals_no):
+        
+        key = secret_bytes
         
         msg = struct.pack(">Q", intervals_no) #* CONVERT PYTHON VAL IN C STRUCT
         
@@ -94,19 +91,15 @@ class string_process:
             print(f"\033[91mError: Invalid encryption key. \033[0m")
             sys.exit()
         
-        with open(self.enc_file_path, 'rb') as enc_file:
-            encrypted = enc_file.read()
-            
-        self.key = fernet.decrypt(encrypted)
-        
         print("\n\033[1;32mThe encryption key is valid and the file has been successfully decrypted.\033[0m\n\n")
         
         try:
             while True:
                 try:
-                    decoded_key = base64.b32encode(self.key).decode('utf-8')
+                    binary_secret = bytes.fromhex(self.key.decode('utf-8'))
+                    
                     print("\033[F\033[K", end='')
-                    print(f"\t\033[1;33m🔑 {self.get_totp_token(decoded_key)}\033[0m")
+                    print(f"\t\033[1;33m🔑 {self.get_totp_token(binary_secret)}\033[0m")
                     time.sleep(1)  # Wait for 1 second before generating the next token
                 except Exception as e:
                     print(f"\033[91mError: Failed to Base32-encode the key. {e}\033[0m")
