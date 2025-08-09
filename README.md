@@ -70,3 +70,6 @@ python3 otp-generator.py -k ft_otp.key
 - The encryption key is generated dynamically and must be stored securely by the user.
 - The TOTP remains valid for 30 seconds, as per the standard.
 
+```bash
+oathtool --totp $(cat key.hex | tr -d ' \t\n\r')
+```
