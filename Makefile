@@ -1,7 +1,7 @@
 .SILENT:
 
 PYTHON := python3
-SCRIPT := otp-generator.py
+SCRIPT := ft_otp.py
 
 
 HEXA_KEY_FILE := key.hex
@@ -16,8 +16,8 @@ clean: clear
 
 generate_file: clean
 	touch $(HEXA_KEY_FILE)
-	head -c 64 /dev/urandom | xxd -p | tr -d '\n' > $(HEXA_KEY_FILE)
-	cat $(HEXA_KEY_FILE)
+	head -c 32 /dev/urandom | xxd -p | tr -d '\n' > $(HEXA_KEY_FILE)
+	cat $(HEXA_KEY_FILE) && echo
 
 g  : generate_file
 	$(PYTHON) $(SCRIPT) -g $(HEXA_KEY_FILE)

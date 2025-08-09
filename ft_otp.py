@@ -12,7 +12,9 @@ class hexa_process:
         self.file_path = file_path
         self.fichier   = file
         
-        self.hexakey   = file.read()
+        self.hexakey   = file.read().strip()
+        if len(self.hexakey) != 64:
+            raise ValueError("hexa key must be 64 long")
         
         self.key = Fernet.generate_key()
         
