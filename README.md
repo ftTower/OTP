@@ -1,6 +1,4 @@
-# OTP
-
-## Cybersecurity Piscine - ft_otp
+# OTP (One Time Password) 
 
 **Nothing ever lasts forever...**
 ![header](https://github.com/ftTower/ftTower/blob/main/assets/OTP/header.png)
