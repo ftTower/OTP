@@ -7,7 +7,6 @@
 ## Table of Contents
 
 - [OTP](#otp)
-	- [Cybersecurity Piscine - ft\_otp](#cybersecurity-piscine---ft_otp)
 	- [Table of Contents](#table-of-contents)
 	- [Implementation Details](#implementation-details)
 		- [Overview](#overview)
